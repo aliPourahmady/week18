@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px;
+}
+.container h3 {
+  color: var(--primary);
+  text-align: left;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.selected button {
+  background-color: var(--primary);
+  padding: 6px 12px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out ;
+  font-size: 0.9rem;
+}
+.selected button:hover {
+  background-color: var(--third-primary);
+  color: var(--primary);
+}
+.selected button:disabled {
+  background-color: var(--third-primary);
+}
+.selected button:disabled:hover{
+  color: white ;
+}
+.contacts {
+  border: 2px solid whitesmoke;
+  list-style: none;
+}
+.message {
+  background: rgba(125, 138, 181, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.2);
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  color: var(--third-primary);
+  font-weight: 500;
+}

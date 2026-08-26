@@ -1,0 +1,137 @@
+.loading {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid var(--primary);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  text-align: center;
+}
+.apierror {
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+}
+
+@keyframes spin {
+  0% {
+    transform: (rotate(0deg));
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.2);
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+.inputs input {
+  height: 40px;
+  padding: 10px;
+  border: 2px solid var(--primary);
+  background: rgb(245, 245, 245, 0.4);
+  border-radius: 20px;
+  color: var(--primary);
+  font-size: 1rem;
+}
+.inputs input:focus-visible {
+  outline: 2px solid var(--third-primary);
+}
+.error {
+  color: #f44336;
+  font-size: 1rem;
+  font-weight: 500;
+
+  padding: 10px;
+  text-align: left;
+}
+
+.form button {
+  width: calc(90% + 20px);
+  height: 40px;
+  margin: 10px 0;
+  cursor: pointer;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.form button:hover {
+  box-shadow: var(--primary) 0px 5px 20px 0px;
+  background-color: var(--third-primary);
+  color: var(--primary);
+}
+
+.alert {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  top: 10px;
+  left: 0;
+  z-index: 2;
+  height: 40px;
+  margin: 10px 10px;
+  color: white;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: var(--primary);
+  animation: pop 2s forwards;
+}
+.icon {
+  font-size: 1.3rem;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .inputs {
+    flex: 0 0 100%;
+  }
+  .form button {
+    width: 100%;
+  }
+}
