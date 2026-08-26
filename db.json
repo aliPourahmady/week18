@@ -1,7 +1,7 @@
 {
   "contacts": [
     {
-      "name": "ali",
+      "name": "alis",
       "lastName": "test",
       "email": "test@gmail.com",
       "phone": "9122222222",
@@ -13,6 +13,20 @@
       "email": "test1@gmail.com",
       "phone": "9129876543",
       "id": "NONjPi-VmE0"
+    },
+    {
+      "name": "subject",
+      "lastName": "test2",
+      "email": "test3@gmail.com",
+      "phone": "9122222222",
+      "id": "z3ZpRLOzj6c"
+    },
+    {
+      "name": "alis",
+      "lastName": "test",
+      "email": "test@gmail.com",
+      "phone": "9122222222",
+      "id": "2F_uuLkSRGg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

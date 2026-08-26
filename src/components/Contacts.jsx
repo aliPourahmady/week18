@@ -123,8 +123,8 @@ function Contacts() {
   };
   return (
     <div className={styles.container}>
-      <div className={styles.form}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <div >
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           {inputs.map((input, index) => (
             <div className={styles.inputs} key={index}>
               <input

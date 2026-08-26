@@ -49,7 +49,7 @@ function ContactItem({
             <FaRegUserCircle />
           </span>
           {name} {lastName}
-          <span>#Work</span>
+          {/* <span>#Work</span> */}
         </p>
         <p>
           <span>
