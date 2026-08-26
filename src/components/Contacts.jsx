@@ -1,12 +1,36 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import inputs from "../const/input";
-import { v4 as uuidv4 } from "uuid";
 
 import styles from "./Contacts.module.css";
 import ContactsList from "./ContactsList";
 
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { useContacts } from "../context/ContactContext";
+
+const contactSchema = yup.object({
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(2, "Name must be at leaset 2 characters"),
+  lastName: yup
+    .string()
+    .min(2, "Last name must be at least 2 characters")
+    .required("Last name is required"),
+  email: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
+  phone: yup
+    .string()
+    .required("Phone number is requierd")
+    .matches(
+      /^\d{10,15}$/,
+      "Phone must contain only digits and be 10-15 characters long",
+    ),
+});
 
 function Contacts() {
   const {
@@ -19,63 +43,48 @@ function Contacts() {
     deleteSelectedContacts,
     fetchContacts,
   } = useContacts();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(contactSchema),
+    defaultValues: { name: "", lastName: "", email: "", phone: "" },
+  });
   const [alert, setAlert] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [selected, setSelected] = useState([]);
-  const [formErrors, setFormErrors] = useState({});
-  const [contact, setContact] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  });
 
   useEffect(() => {
     fetchContacts();
   }, []);
-
-  const validateData = (contactData) => {
-    const newErrors = {};
-
-    if (!contactData.name.trim()) {
-      newErrors.name = "Name is required";
-    } else if (contactData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters";
-    }
-
-    if (!contactData.lastName.trim()) {
-      newErrors.lastName = "Last name is required";
-    } else if (contactData.lastName.trim().length < 2) {
-      newErrors.lastName = "Last name must be at least 2 characters";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!contactData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!emailRegex.test(contactData.email.trim())) {
-      newErrors.email = "Please enter a valid email address";
-    }
-
-    const phoneRegex = /^\d{10,15}$/;
-    if (!contactData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!phoneRegex.test(contactData.phone.trim())) {
-      newErrors.phone =
-        "Phone must contain only digits and be 10–15 characters long";
-    }
-
-    return newErrors;
-  };
 
   const alertTimeOut = (message) => {
     setAlert(message);
     setTimeout(() => setAlert(""), 2000);
   };
 
+  const onSubmit = async (data) => {
+    try {
+      if (isEditing) {
+        await updateContact(editId, data);
+        alertTimeOut("Contact update successfully.");
+      } else {
+        await addContact(data);
+        alertTimeOut("Contact added successfully.");
+      }
+      reset();
+      setIsEditing(false);
+      setEditId(null);
+    } catch (err) {
+      alertTimeOut("Somthing went wrong");
+    }
+  };
+
   const editHandler = (contactData) => {
-    setContact({
-      id: contactData.id,
+    reset({
       name: contactData.name || "",
       lastName: contactData.lastName || "",
       email: contactData.email || "",
@@ -86,61 +95,11 @@ function Contacts() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const changeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setContact((contact) => ({ ...contact, [name]: value }));
-    setFormErrors((prev) => ({ ...prev, [name]: undefined }));
-  };
-
-  const addHandler = async () => {
-    const errors = validateData(contact);
-    if (Object.keys(errors).length > 0) {
-      console.log(errors);
-      setFormErrors(errors);
-      alertTimeOut("Please fill in all required fields correctly.");
-      return;
-    }
-
-    if (isEditing) {
-      await updateContact(editId, {
-        name: contact.name,
-        lastName: contact.lastName,
-        email: contact.email,
-        phone: contact.phone,
-      });
-      alertTimeOut("Contact updated successfully.");
-    } else {
-      await addContact({
-        name: contact.name,
-        lastName: contact.lastName,
-        email: contact.email,
-        phone: contact.phone,
-      });
-      alertTimeOut("Contact added successfully.");
-    }
-    setContact({
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    });
-    setIsEditing(false);
-    setEditId(null);
-    setFormErrors({});
-  };
-
   const cancelEditing = () => {
-    setContact({
-      name: "",
-      lastName: "",
-      email: "",
-      phone: "",
-    });
+    reset();
     setIsEditing(false);
     setEditId(null);
-
-    alertTimeOut("Edit cancelled.");
+    alertTimeOut("Edit cancelled");
   };
 
   const deleteHandler = async (id) => {
@@ -165,25 +124,26 @@ function Contacts() {
   return (
     <div className={styles.container}>
       <div className={styles.form}>
-        {inputs.map((input, index) => (
-          <div className={styles.inputs} key={index}>
-            <input
-              type={input.type}
-              placeholder={input.placeholder}
-              name={input.name}
-              value={contact[input.name]}
-              onChange={changeHandler}
-            />
-            {formErrors[input.name] && (
-              <span className={styles.error}>{formErrors[input.name]}</span>
-            )}
-            {/* </> */}
-          </div>
-        ))}
-        <button onClick={addHandler}>
-          {isEditing ? "Update Contact" : "Add Contact"}
-        </button>
-        {isEditing && <button onClick={cancelEditing}>Cancel</button>}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {inputs.map((input, index) => (
+            <div className={styles.inputs} key={index}>
+              <input
+                type={input.type}
+                placeholder={input.placeholder}
+                {...register(input.name)}
+              />
+              {errors[input.name] && (
+                <span className={styles.error}>
+                  {errors[input.name].message}
+                </span>
+              )}
+            </div>
+          ))}
+          <button type="submit" disabled={isSubmitting}>
+            {isEditing ? "Update Contact" : "Add Contact"}
+          </button>
+          {isEditing && <button onClick={cancelEditing}>Cancel</button>}
+        </form>
       </div>
       <div className={styles.alerts}>
         {alert && (

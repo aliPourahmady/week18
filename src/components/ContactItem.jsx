@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 
 import styles from "./ContactItem.module.css";
@@ -44,11 +44,12 @@ function ContactItem({
         </Modal>
       )}
       <li className={styles.item}>
-        <p>
+        <p className={styles.tag}>
           <span>
             <FaRegUserCircle />
           </span>
           {name} {lastName}
+          <span>#Work</span>
         </p>
         <p>
           <span>
