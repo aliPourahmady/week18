@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import inputs from "../const/input";
+import ContactsList from "./ContactsList";
+import { useContacts } from "../context/ContactContext";
 
 import styles from "./Contacts.module.css";
-import ContactsList from "./ContactsList";
-
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import { useContacts } from "../context/ContactContext";
+import TagInput from "./TagInput";
 
 const contactSchema = yup.object({
   name: yup
@@ -30,6 +30,7 @@ const contactSchema = yup.object({
       /^\d{10,15}$/,
       "Phone must contain only digits and be 10-15 characters long",
     ),
+  tags: yup.array().of(yup.string().trim()).max(5, "Maximum tags allowed"),
 });
 
 function Contacts() {
@@ -47,10 +48,15 @@ function Contacts() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(contactSchema),
-    defaultValues: { name: "", lastName: "", email: "", phone: "" },
+    defaultValues: { name: "", lastName: "", email: "", phone: "", tags: [] },
+  });
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "tags",
   });
   const [alert, setAlert] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -89,6 +95,7 @@ function Contacts() {
       lastName: contactData.lastName || "",
       email: contactData.email || "",
       phone: contactData.phone || "",
+      tags: contactData.tags || [],
     });
     setIsEditing(true);
     setEditId(contactData.id);
@@ -123,7 +130,7 @@ function Contacts() {
   };
   return (
     <div className={styles.container}>
-      <div >
+      <div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           {inputs.map((input, index) => (
             <div className={styles.inputs} key={index}>
@@ -139,6 +146,15 @@ function Contacts() {
               )}
             </div>
           ))}
+
+          <TagInput
+            control={control}
+            name="tags"
+            maxTags={5}
+            error={errors.tags?.message}
+            onError={alertTimeOut}
+          />
+
           <button type="submit" disabled={isSubmitting}>
             {isEditing ? "Update Contact" : "Add Contact"}
           </button>
