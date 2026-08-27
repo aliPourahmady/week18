@@ -54,10 +54,6 @@ function Contacts() {
     resolver: yupResolver(contactSchema),
     defaultValues: { name: "", lastName: "", email: "", phone: "", tags: [] },
   });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "tags",
-  });
   const [alert, setAlert] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
