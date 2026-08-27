@@ -16,7 +16,7 @@ function ContactItem({
   selected,
   selectHandler,
 }) {
-  const { id, name, lastName, email, phone } = data;
+  const { id, name, lastName, email, phone, tags } = data;
   const [modalOpen, setModalOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
@@ -49,6 +49,7 @@ function ContactItem({
             <FaRegUserCircle />
           </span>
           {name} {lastName}
+          {tags && tags.map((tag, index) => <span key={index}>#{tag}</span>)}
           {/* <span>#Work</span> */}
         </p>
         <p>

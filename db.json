@@ -34,7 +34,6 @@
       "lastName": "test3",
       "email": "tagexample@gmail.com",
       "phone": "9122222222",
-      "tags": [],
       "id": "L19BtA0heHw"
     },
     {
@@ -42,12 +41,36 @@
       "lastName": "test",
       "email": "example5@gmail.com",
       "phone": "9129876543",
-      "tags": [
-        {
-          "value": "work"
-        }
-      ],
       "id": "Fn0xZSINjP4"
+    },
+    {
+      "name": "ali",
+      "lastName": "hello",
+      "email": "test@gmail.com",
+      "phone": "9122222222",
+      "id": "bNE9mY-BzjA"
+    },
+    {
+      "name": "ali",
+      "lastName": "test",
+      "email": "09308442218@jabama.com",
+      "phone": "9122222222",
+      "tags": [
+        "work"
+      ],
+      "id": "fxVy5u13WTU"
+    },
+    {
+      "name": "ali",
+      "lastName": "ahamady",
+      "email": "test@gmail.com",
+      "phone": "9122222222",
+      "tags": [
+        "work",
+        "school",
+        "team"
+      ],
+      "id": "Uuvqd0TLOOI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

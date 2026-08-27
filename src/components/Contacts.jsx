@@ -73,11 +73,15 @@ function Contacts() {
 
   const onSubmit = async (data) => {
     try {
+      const stringdata = {
+        ...data,
+        tags: data.tags.map((tag) => tag.value),
+      };
       if (isEditing) {
-        await updateContact(editId, data);
+        await updateContact(editId, stringdata);
         alertTimeOut("Contact update successfully.");
       } else {
-        await addContact(data);
+        await addContact(stringdata);
         alertTimeOut("Contact added successfully.");
       }
       reset();
