@@ -68,7 +68,8 @@
   text-align: left;
 }
 
-.form button {
+.formbtn,
+.cancelbtn {
   width: calc(90% + 20px);
   height: 40px;
   margin: 10px 0;
@@ -82,7 +83,8 @@
   transition: all 0.3s ease-in-out;
 }
 
-.form button:hover {
+.formbtn:hover,
+.cancelbtn:hover {
   box-shadow: var(--primary) 0px 5px 20px 0px;
   background-color: var(--third-primary);
   color: var(--primary);
@@ -135,4 +137,3 @@
     width: 100%;
   }
 }
-

@@ -30,7 +30,10 @@ const contactSchema = yup.object({
       /^\d{10,15}$/,
       "Phone must contain only digits and be 10-15 characters long",
     ),
-  tags: yup.array().of(yup.string().trim()).max(5, "Maximum tags allowed"),
+  tags: yup
+    .array()
+    .of(yup.object({ value: yup.string() }))
+    .max(5, "Maximum tags allowed"),
 });
 
 function Contacts() {
@@ -151,10 +154,18 @@ function Contacts() {
             onError={alertTimeOut}
           />
 
-          <button type="submit" disabled={isSubmitting}>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={styles.formbtn}
+          >
             {isEditing ? "Update Contact" : "Add Contact"}
           </button>
-          {isEditing && <button onClick={cancelEditing}>Cancel</button>}
+          {isEditing && (
+            <button onClick={cancelEditing} className={styles.cancelbtn}>
+              Cancel
+            </button>
+          )}
         </form>
       </div>
       <div className={styles.alerts}>

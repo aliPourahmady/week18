@@ -5,6 +5,7 @@
       "lastName": "test",
       "email": "test@gmail.com",
       "phone": "9122222222",
+      "tags": [],
       "id": "dbjCO2NhqoA"
     },
     {
@@ -27,6 +28,26 @@
       "email": "test@gmail.com",
       "phone": "9122222222",
       "id": "2F_uuLkSRGg"
+    },
+    {
+      "name": "ali",
+      "lastName": "test3",
+      "email": "tagexample@gmail.com",
+      "phone": "9122222222",
+      "tags": [],
+      "id": "L19BtA0heHw"
+    },
+    {
+      "name": "alli",
+      "lastName": "test",
+      "email": "example5@gmail.com",
+      "phone": "9129876543",
+      "tags": [
+        {
+          "value": "work"
+        }
+      ],
+      "id": "Fn0xZSINjP4"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

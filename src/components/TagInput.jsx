@@ -46,7 +46,7 @@ function TagInput({
       <div className={styles.tags}>
         {fields.map((field, index) => (
           <span key={field.id} className={styles.tag}>
-            {field.value}
+            #{field.value}
             <button
               type="button"
               onClick={() => remove(index)}
@@ -63,3 +63,4 @@ function TagInput({
 }
 
 export default TagInput;
+
