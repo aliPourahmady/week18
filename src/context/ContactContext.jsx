@@ -56,17 +56,17 @@ function ContactProvider({ children }) {
   const fetchContacts = async () => {
     dispatch({ type: "FETCH_START" });
     try {
-      const response = await api.get("/contacts");
-      dispatch({ type: "FETCH_SUCCESS", payload: response });
+      const data = await api.get("/contacts");
+      dispatch({ type: "FETCH_SUCCESS", payload: data });
     } catch (er) {
       dispatch({ type: "FETCH_ERROR", payload: er.message });
     }
   };
   const addContact = async (contact) => {
     try {
-      const response = await api.post("/contacts", contact);
-      dispatch({ type: "ADD_CONTACT", payload: response });
-      return response;
+      const data = await api.post("/contacts", contact);
+      dispatch({ type: "ADD_CONTACT", payload: data });
+      return data;
     } catch (error) {
       console.error("Add error:", error);
       throw error;
@@ -74,9 +74,9 @@ function ContactProvider({ children }) {
   };
   const updateContact = async (id, updatedContact) => {
     try {
-      const response = await api.put(`/contacts/${id}`, updatedContact);
-      dispatch({ type: "UPDATE_CONTACT", payload: response });
-      return response;
+      const data = await api.put(`/contacts/${id}`, updatedContact);
+      dispatch({ type: "UPDATE_CONTACT", payload: data });
+      return data;
     } catch (error) {
       console.error("Update error:", error);
       throw error;

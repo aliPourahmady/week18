@@ -44,22 +44,26 @@ function ContactItem({
         </Modal>
       )}
       <li className={styles.item}>
-        <p className={styles.tag}>
-          <span>
+        <p>
+          <span className={styles.icon}>
             <FaRegUserCircle />
           </span>
-          {name} {lastName}
-          {tags && tags.map((tag, index) => <span key={index}>#{tag}</span>)}
-          {/* <span>#Work</span> */}
+          <span className={styles.user}>
+            {name} {lastName}
+            <span className={styles.tags}>
+              {tags &&
+                tags.map((tag, index) => <span key={index} className={styles.tag}>#{tag}</span>)}
+            </span>
+          </span>
         </p>
         <p>
-          <span>
+          <span className={styles.icon}>
             <MdOutlineMailOutline />
           </span>
           {email}
         </p>
         <p>
-          <span>
+          <span className={styles.icon}>
             <MdOutlineLocalPhone />
           </span>
           {phone}

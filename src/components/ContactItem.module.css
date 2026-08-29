@@ -6,7 +6,7 @@
   box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.2);
   color: var(--primary);
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 16px 20px;
   margin: 15px;
   border-radius: 10px;
   gap: 20px;
@@ -18,7 +18,8 @@
   flex-basis: 0;
   flex-grow: 1;
 }
-.item span:first-child {
+
+.item .icon:first-child {
   color: white;
   display: flex;
   align-items: center;
@@ -34,18 +35,28 @@
   box-shadow: inset 0 0 8px 1px rgba(255, 255, 255, 0.2);
   line-height: 35px;
 }
-/* .tag {
+ .user {
   display: flex;
   flex-direction: column;
-} */
-/* .tag span {
+} 
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   font-size: 12px;
-  background-color: var(--second-primary);
+  gap: 5px;
   border-radius: 15px;
   padding: 4px;
   margin-left: 10px;
   cursor: pointer;
-}  */
+  
+}  
+.tag {
+  background-color: var(--third-primary);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
 .button {
   display: flex;
   justify-content: space-between;

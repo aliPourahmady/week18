@@ -28,10 +28,7 @@
   color: var(--primary);
   font-weight: 600;
 }
-.search input:focus-visible {
-  outline: 2px solid var(--third-primary);
-}
-@media (max-width:768px) {
+@media (max-width:678px) {
     .search input{
         width: auto;
     

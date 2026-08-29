@@ -12,30 +12,35 @@ function ContactsList({
   selectHandler,
   deleteSelectedHandler,
 }) {
-  const [searchInput, setSearchInput] = useState(""); 
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchInput, setSearchInput] = useState("");
+  const [query, setQuery] = useState("");
   const [filteredContacts, setFilteredContacts] = useState(contacts);
   const [selectedModal, setSelectedModal] = useState(false);
 
   useEffect(() => {
-    const trimmed = searchTerm.trim();
-    if (!trimmed) {
+    const input = query.trim();
+    if (!input) {
       setFilteredContacts(contacts);
     } else {
-      const lower = trimmed.toLowerCase();
-      const filtered = contacts.filter(
-        (contact) =>
-          contact.name.toLowerCase().includes(lower) ||
-          contact.lastName.toLowerCase().includes(lower) ||
-          contact.email.toLowerCase().includes(lower) ||
-          contact.phone.includes(lower), 
-      );
+      const lower = input.toLowerCase();
+      const filtered = contacts.filter((contact) => {
+        const nameMatch = contact.name.toLowerCase().includes(lower);
+        const lastNameMatch = contact.lastName.toLowerCase().includes(lower);
+        const emailMatch = contact.email.toLowerCase().includes(lower);
+        const phoneMatch = contact.phone.includes(lower);
+        const tagMatch = (contact.tags || []).some((tag) =>
+          tag.toLowerCase().includes(lower),
+        );
+
+        return (
+          nameMatch || lastNameMatch || emailMatch || phoneMatch || tagMatch
+        );
+      });
       setFilteredContacts(filtered);
     }
-  }, [contacts, searchTerm]);
-
+  }, [contacts, query]);
   const searchHandler = () => {
-    setSearchTerm(searchInput); 
+    setQuery(searchInput);
   };
 
   return (

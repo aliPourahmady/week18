@@ -1,76 +1,34 @@
 {
   "contacts": [
     {
-      "name": "alis",
-      "lastName": "test",
-      "email": "test@gmail.com",
-      "phone": "9122222222",
-      "tags": [],
-      "id": "dbjCO2NhqoA"
-    },
-    {
-      "name": "lina",
-      "lastName": "test2",
-      "email": "test1@gmail.com",
+      "name": "lia",
+      "lastName": "testName",
+      "email": "example@gmail.com",
       "phone": "9129876543",
-      "id": "NONjPi-VmE0"
+      "tags": [
+        "school"
+      ],
+      "id": "TowRVI4OAd8"
     },
     {
-      "name": "subject",
+      "name": "ali",
       "lastName": "test2",
-      "email": "test3@gmail.com",
-      "phone": "9122222222",
-      "id": "z3ZpRLOzj6c"
-    },
-    {
-      "name": "alis",
-      "lastName": "test",
-      "email": "test@gmail.com",
-      "phone": "9122222222",
-      "id": "2F_uuLkSRGg"
-    },
-    {
-      "name": "ali",
-      "lastName": "test3",
-      "email": "tagexample@gmail.com",
-      "phone": "9122222222",
-      "id": "L19BtA0heHw"
-    },
-    {
-      "name": "alli",
-      "lastName": "test",
-      "email": "example5@gmail.com",
-      "phone": "9129876543",
-      "id": "Fn0xZSINjP4"
-    },
-    {
-      "name": "ali",
-      "lastName": "hello",
-      "email": "test@gmail.com",
-      "phone": "9122222222",
-      "id": "bNE9mY-BzjA"
-    },
-    {
-      "name": "ali",
-      "lastName": "test",
-      "email": "09308442218@jabama.com",
+      "email": "example2@gmail.com",
       "phone": "9122222222",
       "tags": [
         "work"
       ],
-      "id": "fxVy5u13WTU"
+      "id": "y8AtUxksv6g"
     },
     {
-      "name": "ali",
-      "lastName": "ahamady",
-      "email": "test@gmail.com",
-      "phone": "9122222222",
+      "name": "jack",
+      "lastName": "example",
+      "email": "exampl3@gmail.com",
+      "phone": "9129876543",
       "tags": [
-        "work",
-        "school",
-        "team"
+        "home"
       ],
-      "id": "Uuvqd0TLOOI"
+      "id": "nnJX9BLLyoM"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

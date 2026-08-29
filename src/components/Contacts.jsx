@@ -36,6 +36,14 @@ const contactSchema = yup.object({
     .max(5, "Maximum tags allowed"),
 });
 
+const defaultValues = {
+  name: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  tags: [],
+};
+
 function Contacts() {
   const {
     contacts,
@@ -55,7 +63,7 @@ function Contacts() {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(contactSchema),
-    defaultValues: { name: "", lastName: "", email: "", phone: "", tags: [] },
+    defaultValues: defaultValues,
   });
   const [alert, setAlert] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -84,7 +92,7 @@ function Contacts() {
         await addContact(stringdata);
         alertTimeOut("Contact added successfully.");
       }
-      reset();
+      reset(defaultValues);
       setIsEditing(false);
       setEditId(null);
     } catch (err) {
@@ -93,12 +101,13 @@ function Contacts() {
   };
 
   const editHandler = (contactData) => {
+    const tags = (contactData.tags || []).map((tag) => ({ value: tag }));
     reset({
       name: contactData.name || "",
       lastName: contactData.lastName || "",
       email: contactData.email || "",
       phone: contactData.phone || "",
-      tags: contactData.tags || [],
+      tags: tags,
     });
     setIsEditing(true);
     setEditId(contactData.id);
@@ -106,7 +115,7 @@ function Contacts() {
   };
 
   const cancelEditing = () => {
-    reset();
+    reset(defaultValues);
     setIsEditing(false);
     setEditId(null);
     alertTimeOut("Edit cancelled");
@@ -153,7 +162,7 @@ function Contacts() {
           <TagInput
             control={control}
             name="tags"
-            maxTags={5}
+            maxTags={3}
             error={errors.tags?.message}
             onError={alertTimeOut}
           />
