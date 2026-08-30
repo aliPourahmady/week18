@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import * as yup from "yup";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import inputs from "../const/input";
 import ContactsList from "./ContactsList";
@@ -55,6 +55,7 @@ function Contacts() {
     deleteSelectedContacts,
     fetchContacts,
   } = useContacts();
+
   const {
     register,
     handleSubmit,
@@ -65,6 +66,7 @@ function Contacts() {
     resolver: yupResolver(contactSchema),
     defaultValues: defaultValues,
   });
+
   const [alert, setAlert] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -140,6 +142,7 @@ function Contacts() {
     setSelected([]);
     alertTimeOut("Selected contacts deleted.");
   };
+
   return (
     <div className={styles.container}>
       <div>

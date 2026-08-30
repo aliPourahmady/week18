@@ -4,12 +4,12 @@ import ContactProvider from "./context/ContactContext";
 
 function App() {
   return (
-    <>
+    <div>
       <ContactProvider>
         <Header />
         <Contacts />
       </ContactProvider>
-    </>
+    </div>
   );
 }
 
